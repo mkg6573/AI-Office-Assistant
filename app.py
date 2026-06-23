@@ -3,6 +3,8 @@ from transcription import transcribe_audio
 from summarizer import generate_summary
 from email_generator import generate_email
 from email_sender import send_email
+from qa import answer_question
+
 
 st.set_page_config(
     page_title="Smart Office Assistant",

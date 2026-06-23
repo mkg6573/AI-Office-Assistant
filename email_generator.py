@@ -18,18 +18,33 @@ def generate_email(transcript):
 
     Requirements:
 
-    1. Create a professional subject line.
-    2. Write a concise meeting summary.
-    3. Highlight key discussion points.
-    4. Highlight decisions made.
-    5. List action items.
-    6. Extract all important dates, deadlines, milestones, and upcoming meetings.
-    7. Create a separate section:
-       IMPORTANT DATES & DEADLINES
-    8. If no dates are found, write:
-       "No specific dates or deadlines were mentioned."
-    9. Use a professional corporate tone.
-    10. Format the email clearly using headings and bullet points.
+   1. Generate a clear and professional subject line.
+    2. Keep the email short and focused (150-250 words maximum).
+    3. Summarize only the most important discussion points.
+    4. Include key decisions and critical action items naturally within the email body.
+    5. Mention important dates, deadlines, and upcoming milestones only if they were discussed.
+    6. Do NOT use bullet points, numbered lists, tables, or headings.
+    7. Write in a formal corporate tone suitable for managers, clients, and team members.
+    8. Use clear paragraphs and natural business language.
+    9. Avoid repeating information.
+    10. End the email with:
+
+    Best regards,
+
+    AI Meeting Assistant
+
+    11. Never use placeholders such as:
+        [Your Name]
+        [Executive Assistant]
+        [Sender Name]
+
+    12. Always sign the email as:
+
+    Best regards,
+
+    AI Meeting Assistant
+
+    The email should read like a real business follow-up email sent after a meeting.
 
     Transcript:
     {transcript}

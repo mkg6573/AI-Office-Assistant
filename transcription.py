@@ -28,12 +28,29 @@ def transcribe_audio(uploaded_audio):
     Transcribe this meeting audio.
 
     Instructions:
-    - Detect different speakers whenever possible.
-    - Label them as Speaker 1, Speaker 2, Speaker 3.
-    - Start a new paragraph when the speaker changes.
-    - Correct grammar.
-    - Remove filler words.
-    - Return only the transcript.
+
+    1. Detect different speakers whenever possible.
+    2. Label them as:
+    Speaker 1:
+    Speaker 2:
+    Speaker 3:
+    3. Start a new paragraph when the speaker changes.
+    4. Correct grammar and punctuation.
+    5. Remove filler words such as um, uh, hmm.
+    6. Return only the transcript.
+    7. Do NOT use Markdown formatting.
+    8. Do NOT use asterisks (*), bold text (**), bullet points, or code blocks.
+    9. Write speaker labels as plain text exactly like:
+
+    Speaker 1:
+    Hello everyone.
+
+    Speaker 2:
+    Thank you.
+
+    10. Keep the original meaning of the conversation.
+
+    Transcript:
     """
 
     response = client.models.generate_content(
