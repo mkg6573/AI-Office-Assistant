@@ -5,7 +5,6 @@ from email_generator import generate_email
 from email_sender import send_email
 from qa import answer_question
 
-
 st.set_page_config(
     page_title="Smart Office Assistant",
     page_icon="🎤",
@@ -94,19 +93,6 @@ if audio_file:
         # ==========================
         st.subheader("📧 AI Email Generator")
 
-        st.info(
-            """
-            Generate a professional email containing:
-
-            • Meeting Summary
-            • Key Discussion Points
-            • Decisions Made
-            • Action Items
-            • Important Dates & Deadlines
-            • Next Steps
-            """
-        )
-
         if st.button("📧 Generate Professional Email"):
 
             with st.spinner("Generating Professional Email..."):
@@ -146,7 +132,7 @@ if audio_file:
 
         team_emails = st.text_area(
             "Enter Team Member Emails (comma separated)",
-            placeholder="mohit@gmail.com, rahul@gmail.com, aman@gmail.com"
+            placeholder="mohit@gmail.com, rahul@gmail.com"
         )
 
         if st.button("📨 Send Email"):
@@ -182,3 +168,62 @@ if audio_file:
                 st.warning(
                     "⚠️ Please enter at least one email address."
                 )
+
+# ==========================================
+# SIDEBAR AI CHATBOT (OUTSIDE if audio_file)
+# ==========================================
+with st.sidebar:
+
+    st.header("💬 AI Meeting Assistant")
+
+    if "chat_history" not in st.session_state:
+        st.session_state["chat_history"] = []
+
+    question = st.text_input(
+        "Ask about the meeting",
+        placeholder="What decisions were made?"
+    )
+
+    if st.button("🤖 Ask AI"):
+
+        if "transcript" not in st.session_state:
+
+            st.warning(
+                "Please generate the transcript first."
+            )
+
+        elif question.strip():
+
+            with st.spinner("Thinking..."):
+
+                answer = answer_question(
+                    st.session_state["transcript"],
+                    question
+                )
+
+            st.session_state["chat_history"].append(
+                {
+                    "question": question,
+                    "answer": answer
+                }
+            )
+
+    st.divider()
+
+    st.subheader("🗨️ Conversation")
+
+    if st.session_state["chat_history"]:
+
+        for chat in reversed(
+            st.session_state["chat_history"]
+        ):
+
+            st.markdown(
+                f"**🙋 You:** {chat['question']}"
+            )
+
+            st.markdown(
+                f"**🤖 AI:** {chat['answer']}"
+            )
+
+            st.divider()
