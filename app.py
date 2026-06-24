@@ -23,17 +23,39 @@ if audio_file:
     st.audio(audio_file)
 
     # ==========================
-    # Generate Transcript
+    # Process Meeting
     # ==========================
-    if st.button("🎤 Generate Transcript"):
+    if st.button("🚀 Process Meeting"):
 
-        with st.spinner("Transcribing Audio..."):
+        try:
 
-            transcript = transcribe_audio(audio_file)
+            with st.spinner("🎤 Transcribing Audio..."):
 
-        st.session_state["transcript"] = transcript
+                transcript = transcribe_audio(audio_file)
 
-        st.success("✅ Transcription Completed")
+            st.session_state["transcript"] = transcript
+
+            with st.spinner("📋 Generating Summary..."):
+
+                summary = generate_summary(transcript)
+
+            st.session_state["summary"] = summary
+
+            with st.spinner("📧 Generating Professional Email..."):
+
+                email = generate_email(transcript)
+
+            st.session_state["email"] = email
+
+            st.success(
+                "✅ Transcript, Summary and Email Generated Successfully!"
+            )
+
+        except Exception as e:
+
+            st.error(
+                f"❌ Error: {e}"
+            )
 
     # ==========================
     # Show Transcript
@@ -55,21 +77,6 @@ if audio_file:
             mime="text/plain"
         )
 
-        # ==========================
-        # Generate Summary
-        # ==========================
-        if st.button("📋 Generate Summary"):
-
-            with st.spinner("Generating Summary..."):
-
-                summary = generate_summary(
-                    st.session_state["transcript"]
-                )
-
-            st.session_state["summary"] = summary
-
-            st.success("✅ Summary Generated")
-
     # ==========================
     # Show Summary
     # ==========================
@@ -88,32 +95,15 @@ if audio_file:
             mime="text/plain"
         )
 
-        # ==========================
-        # Generate Professional Email
-        # ==========================
-        st.subheader("📧 AI Email Generator")
-
-        if st.button("📧 Generate Professional Email"):
-
-            with st.spinner("Generating Professional Email..."):
-
-                email = generate_email(
-                    st.session_state["transcript"]
-                )
-
-            st.session_state["email"] = email
-
-            st.success("✅ Professional Email Generated")
-
     # ==========================
     # Show Email
     # ==========================
     if "email" in st.session_state:
 
-        st.subheader("📨 Generated Email")
+        st.subheader("📨 Professional Email")
 
         st.text_area(
-            "Professional Email",
+            "Generated Email",
             st.session_state["email"],
             height=400
         )
@@ -132,7 +122,7 @@ if audio_file:
 
         team_emails = st.text_area(
             "Enter Team Member Emails (comma separated)",
-            placeholder="mohit@gmail.com, rahul@gmail.com"
+            placeholder="mohit@gmail.com, rahul@gmail.com, aman@gmail.com"
         )
 
         if st.button("📨 Send Email"):
@@ -170,7 +160,7 @@ if audio_file:
                 )
 
 # ==========================================
-# SIDEBAR AI CHATBOT (OUTSIDE if audio_file)
+# SIDEBAR AI CHATBOT
 # ==========================================
 with st.sidebar:
 
